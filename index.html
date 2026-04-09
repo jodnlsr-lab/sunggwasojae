@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/redbo/Downloads/index_1.html -->
-<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="ko">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>성과소재 관리툴</title>
-<script src="./성과소재 관리툴_files/papaparse.min.js.다운로드"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
 :root{
@@ -18,7 +17,6 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;font-size:13px;min-height:100vh;}
 
-/* 헤더 */
 .hdr{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
 .logo{display:flex;align-items:center;gap:10px;}
 .logo-ico{width:34px;height:34px;background:linear-gradient(135deg,var(--accent),#a855f7);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 0 16px rgba(99,102,241,.4);}
@@ -29,7 +27,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .conn-dot{width:6px;height:6px;border-radius:50%;background:var(--text3);}
 .conn-dot.ok{background:var(--green);box-shadow:0 0 6px var(--green);}
 
-/* 버튼 */
 .btn{border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;display:flex;align-items:center;gap:6px;}
 .btn-primary{background:var(--accent);color:white;}
 .btn-primary:hover{background:var(--accent2);transform:translateY(-1px);}
@@ -39,10 +36,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .btn-danger:hover{background:var(--red);color:white;}
 .btn-sm{padding:5px 11px;font-size:11px;}
 
-/* 레이아웃 */
 .layout{display:flex;min-height:calc(100vh - 56px);}
-
-/* 사이드바 */
 .sidebar{width:220px;background:var(--bg2);border-right:1px solid var(--border);padding:16px 12px;flex-shrink:0;display:flex;flex-direction:column;gap:4px;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;}
 .nav-item{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:8px;cursor:pointer;color:var(--text2);font-size:12px;font-weight:500;transition:all .15s;user-select:none;}
 .nav-item:hover{background:var(--bg3);color:var(--text);}
@@ -51,32 +45,30 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .nav-divider{height:1px;background:var(--border);margin:8px 0;}
 .nav-label{font-size:10px;color:var(--text3);padding:4px 12px;text-transform:uppercase;letter-spacing:.06em;font-weight:600;}
 
-/* 메인 */
 .main{flex:1;padding:24px;overflow:hidden;}
-
-/* 페이지 */
 .page{display:none;}
 .page.on{display:block;}
 
-/* 검색/필터 바 */
 .search-bar{display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
 .search-inp{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--border2);color:var(--text);border-radius:10px;padding:10px 14px;font-size:13px;font-family:inherit;outline:none;transition:all .2s;}
 .search-inp:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(99,102,241,.1);}
 .filter-sel{background:var(--bg2);border:1px solid var(--border2);color:var(--text);border-radius:8px;padding:8px 12px;font-size:12px;font-family:inherit;outline:none;cursor:pointer;}
 .filter-sel:focus{border-color:var(--accent);}
 
-/* 소재 그리드 */
 .creative-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
 .creative-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .2s;position:relative;}
 .creative-card:hover{border-color:var(--border2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.3);}
-.card-img{width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--text3);}
+.card-img{width:100%;aspect-ratio:1;object-fit:cover;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--text3);position:relative;overflow:hidden;}
 .card-img img{width:100%;height:100%;object-fit:cover;}
+.card-img video{width:100%;height:100%;object-fit:cover;}
+.card-img .video-badge{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.7);color:white;font-size:10px;padding:3px 7px;border-radius:6px;font-weight:600;}
 .card-body{padding:12px 14px;}
 .card-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .card-meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
 .tag{font-size:9px;padding:2px 7px;border-radius:99px;background:var(--bg3);color:var(--text2);border:1px solid var(--border);white-space:nowrap;}
 .tag.media{background:rgba(99,102,241,.15);color:var(--accent2);border-color:rgba(99,102,241,.3);}
 .tag.size{background:rgba(249,115,22,.1);color:#fb923c;border-color:rgba(249,115,22,.2);}
+.tag.category{background:rgba(16,185,129,.1);color:var(--green);border-color:rgba(16,185,129,.2);}
 .card-kpis{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
 .kpi-mini{background:var(--bg3);border-radius:6px;padding:5px 7px;}
 .kpi-mini-label{font-size:9px;color:var(--text3);}
@@ -85,13 +77,11 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .creative-card:hover .card-del{display:flex;}
 .card-del:hover{background:var(--red);color:white;}
 
-/* 빈 상태 */
 .empty{text-align:center;padding:80px 20px;color:var(--text3);}
 .empty-ico{font-size:52px;margin-bottom:16px;}
 .empty-title{font-size:16px;font-weight:600;color:var(--text2);margin-bottom:8px;}
 .empty-sub{font-size:13px;line-height:1.7;}
 
-/* 모달 */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;align-items:center;justify-content:center;padding:20px;}
 .modal-bg.show{display:flex;}
 .modal{background:var(--bg2);border:1px solid var(--border2);border-radius:16px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;padding:28px;}
@@ -99,7 +89,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .modal-close{border:none;background:transparent;color:var(--text3);cursor:pointer;font-size:18px;padding:2px 6px;}
 .modal-close:hover{color:var(--text);}
 
-/* 폼 */
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 .form-group{display:flex;flex-direction:column;gap:5px;}
 .form-group.full{grid-column:1/-1;}
@@ -109,20 +98,23 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .form-sel{background:var(--bg3);border:1px solid var(--border2);color:var(--text);border-radius:8px;padding:9px 12px;font-size:12px;font-family:inherit;outline:none;cursor:pointer;width:100%;}
 .form-textarea{resize:vertical;min-height:80px;}
 
-/* 이미지 업로드 */
+/* 미디어 업로드 */
+.media-upload-tabs{display:flex;gap:8px;margin-bottom:10px;}
+.media-tab{padding:6px 14px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;}
+.media-tab.on{background:var(--accent);color:white;border-color:var(--accent);}
 .img-upload{border:2px dashed var(--border2);border-radius:10px;padding:24px;text-align:center;cursor:pointer;transition:all .2s;position:relative;}
 .img-upload:hover,.img-upload.drag{border-color:var(--accent);background:rgba(99,102,241,.05);}
-.img-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.img-upload input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
 .img-preview{width:100%;max-height:200px;object-fit:contain;border-radius:8px;margin-top:10px;}
+.video-preview{width:100%;max-height:200px;border-radius:8px;margin-top:10px;}
 .upload-ico{font-size:28px;margin-bottom:8px;}
 .upload-txt{font-size:13px;color:var(--text2);}
 .upload-sub{font-size:11px;color:var(--text3);}
 
-/* KPI 섹션 */
 .kpi-section-title{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin:16px 0 8px;grid-column:1/-1;}
 
-/* 상세 모달 */
 .detail-img{width:100%;max-height:300px;object-fit:contain;border-radius:10px;background:var(--bg3);margin-bottom:16px;}
+.detail-video{width:100%;max-height:300px;border-radius:10px;background:var(--bg3);margin-bottom:16px;}
 .detail-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;}
 .detail-kpi{background:var(--bg3);border-radius:10px;padding:12px 14px;text-align:center;}
 .detail-kpi-label{font-size:10px;color:var(--text3);margin-bottom:4px;}
@@ -130,20 +122,17 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .detail-meta{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;}
 .detail-memo{background:var(--bg3);border-radius:8px;padding:12px;font-size:12px;color:var(--text2);line-height:1.7;}
 
-/* 통계 */
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:24px;}
 .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
 .stat-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
 .stat-val{font-size:24px;font-weight:700;font-family:var(--mono);color:var(--text);}
 .stat-sub{font-size:10px;color:var(--text3);margin-top:4px;}
 
-/* 로딩 */
 .loading-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;align-items:center;justify-content:center;}
 .loading-overlay.show{display:flex;}
 .spin{width:40px;height:40px;border:3px solid rgba(99,102,241,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
-/* 토스트 */
 .toast{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:12px 18px;font-size:12px;z-index:999;opacity:0;transform:translateY(10px);transition:all .3s;max-width:300px;}
 .toast.show{opacity:1;transform:translateY(0);}
 .toast.ok{border-color:rgba(16,185,129,.4);color:var(--green);}
@@ -156,7 +145,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 </head>
 <body>
 
-<!-- 헤더 -->
 <div class="hdr">
   <div class="logo">
     <div class="logo-ico">📊</div>
@@ -175,31 +163,27 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 </div>
 
 <div class="layout">
-  <!-- 사이드바 -->
   <div class="sidebar">
     <div class="nav-label">메뉴</div>
-    <div class="nav-item on" onclick="showPage(&#39;list&#39;,this)"><span class="nav-ico">🖼</span> 소재 목록</div>
-    <div class="nav-item" onclick="showPage(&#39;stats&#39;,this)"><span class="nav-ico">📈</span> 성과 통계</div>
+    <div class="nav-item on" onclick="showPage('list',this)"><span class="nav-ico">🖼</span> 소재 목록</div>
+    <div class="nav-item" onclick="showPage('stats',this)"><span class="nav-ico">📈</span> 성과 통계</div>
     <div class="nav-divider"></div>
     <div class="nav-label">매체 필터</div>
-    <div class="nav-item" onclick="filterByMedia(&#39;&#39;,this)" id="nav-all"><span class="nav-ico">🌐</span> 전체</div>
-    <div class="nav-item" onclick="filterByMedia(&#39;네이버SA&#39;,this)"><span class="nav-ico">🟢</span> 네이버SA</div>
-    <div class="nav-item" onclick="filterByMedia(&#39;네이버GFA&#39;,this)"><span class="nav-ico">🟩</span> 네이버GFA</div>
-    <div class="nav-item" onclick="filterByMedia(&#39;카카오&#39;,this)"><span class="nav-ico">🟡</span> 카카오</div>
-    <div class="nav-item" onclick="filterByMedia(&#39;구글&#39;,this)"><span class="nav-ico">🔵</span> 구글</div>
-    <div class="nav-item" onclick="filterByMedia(&#39;메타&#39;,this)"><span class="nav-ico">🔷</span> 메타</div>
-    <div class="nav-item" onclick="filterByMedia(&#39;틱톡&#39;,this)"><span class="nav-ico">⬛</span> 틱톡</div>
-    <div class="nav-item" onclick="filterByMedia(&#39;쿠팡&#39;,this)"><span class="nav-ico">🟠</span> 쿠팡</div>
-    <div class="nav-item" onclick="filterByMedia(&#39;당근&#39;,this)"><span class="nav-ico">🥕</span> 당근</div>
+    <div class="nav-item" onclick="filterByMedia('',this)" id="nav-all"><span class="nav-ico">🌐</span> 전체</div>
+    <div class="nav-item" onclick="filterByMedia('네이버SA',this)"><span class="nav-ico">🟢</span> 네이버SA</div>
+    <div class="nav-item" onclick="filterByMedia('네이버GFA',this)"><span class="nav-ico">🟩</span> 네이버GFA</div>
+    <div class="nav-item" onclick="filterByMedia('카카오',this)"><span class="nav-ico">🟡</span> 카카오</div>
+    <div class="nav-item" onclick="filterByMedia('구글',this)"><span class="nav-ico">🔵</span> 구글</div>
+    <div class="nav-item" onclick="filterByMedia('메타',this)"><span class="nav-ico">🔷</span> 메타</div>
+    <div class="nav-item" onclick="filterByMedia('틱톡',this)"><span class="nav-ico">⬛</span> 틱톡</div>
+    <div class="nav-item" onclick="filterByMedia('쿠팡',this)"><span class="nav-ico">🟠</span> 쿠팡</div>
+    <div class="nav-item" onclick="filterByMedia('당근',this)"><span class="nav-ico">🥕</span> 당근</div>
   </div>
 
-  <!-- 메인 -->
   <div class="main">
-
-    <!-- 소재 목록 -->
     <div class="page on" id="page-list">
       <div class="search-bar">
-        <input class="search-inp" id="searchInp" placeholder="🔍 업체명, 소재 제목, 태그 검색..." oninput="renderList()">
+        <input class="search-inp" id="searchInp" placeholder="🔍 업체명, 소재 제목, 카테고리 검색..." oninput="renderList()">
         <select class="filter-sel" id="filterSize" onchange="renderList()">
           <option value="">전체 사이즈</option>
           <option>1080x1080</option>
@@ -208,7 +192,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
           <option>640x640</option>
           <option>1080x1920</option>
           <option>600x500</option>
-          <option>직접입력</option>
         </select>
         <select class="filter-sel" id="filterSort" onchange="renderList()">
           <option value="newest">최신순</option>
@@ -219,40 +202,18 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
         <span style="font-size:11px;color:var(--text3);" id="countLabel">총 0개</span>
       </div>
       <div class="creative-grid" id="creativeGrid"></div>
-      <div class="empty" id="emptyState" style="display: block;">
+      <div class="empty" id="emptyState" style="display:block;">
         <div class="empty-ico">📭</div>
         <div class="empty-title">소재가 없어요</div>
         <div class="empty-sub">상단 "+ 소재 추가" 버튼으로<br>첫 번째 소재를 등록해보세요!</div>
       </div>
     </div>
 
-    <!-- 통계 -->
     <div class="page" id="page-stats">
-      <div class="stat-grid" id="statGrid">
-    <div class="stat-card">
-      <div class="stat-label">총 소재 수</div>
-      <div class="stat-val">0개</div>
-      <div class="stat-sub">등록된 전체 소재</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">평균 ROAS</div>
-      <div class="stat-val">0%</div>
-      <div class="stat-sub">전체 소재 평균</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">평균 CTR</div>
-      <div class="stat-val">0.00%</div>
-      <div class="stat-sub">전체 소재 평균</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">평균 CPC</div>
-      <div class="stat-val">₩0</div>
-      <div class="stat-sub">전체 소재 평균</div>
-    </div></div>
+      <div class="stat-grid" id="statGrid"></div>
       <div style="font-size:14px;font-weight:700;color:var(--text2);margin-bottom:14px;">📊 매체별 소재 수</div>
       <div id="mediaStatGrid" class="creative-grid" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr));"></div>
     </div>
-
   </div>
 </div>
 
@@ -264,21 +225,24 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
       <button class="modal-close" onclick="closeAddModal()">✕</button>
     </div>
 
-    <!-- 이미지 업로드 -->
+    <!-- 미디어 업로드 (이미지/영상 자동감지) -->
     <div class="form-group full" style="margin-bottom:16px;">
-      <div class="img-upload" id="imgUploadArea" ondragover="event.preventDefault();this.classList.add(&#39;drag&#39;)" ondragleave="this.classList.remove(&#39;drag&#39;)" ondrop="handleImgDrop(event)">
-        <input type="file" accept="image/*" onchange="handleImgSelect(this)">
+      <div class="img-upload" id="mediaUploadArea"
+        ondragover="event.preventDefault();this.classList.add('drag')"
+        ondragleave="this.classList.remove('drag')"
+        ondrop="handleMediaDrop(event)">
+        <input type="file" accept="image/*,video/*" onchange="handleMediaSelect(this)">
         <div id="uploadPlaceholder">
-          <div class="upload-ico">🖼</div>
-          <div class="upload-txt">이미지 업로드</div>
-          <div class="upload-sub">클릭 · 드래그 앤 드롭 · Ctrl+V 붙여넣기</div>
+          <div class="upload-ico">🖼🎬</div>
+          <div class="upload-txt">이미지 또는 영상 업로드</div>
+          <div class="upload-sub">클릭 · 드래그 앤 드롭 · Ctrl+V (이미지) — 자동 감지</div>
         </div>
         <img id="imgPreview" class="img-preview" style="display:none;">
+        <video id="videoPreview" class="video-preview" controls style="display:none;"></video>
       </div>
     </div>
 
     <div class="form-grid">
-      <!-- 기본 정보 -->
       <div class="form-group">
         <label class="form-label">업체명 *</label>
         <input class="form-inp" id="f_client" placeholder="예: 애플네이처" list="clientList" autocomplete="off">
@@ -322,11 +286,10 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">태그</label>
-        <input class="form-inp" id="f_tags" placeholder="예: 할인,신제품,여름">
+        <label class="form-label">카테고리</label>
+        <input class="form-inp" id="f_category" placeholder="예: 신제품,할인,시즌">
       </div>
 
-      <!-- KPI -->
       <div class="kpi-section-title">📊 성과 지표</div>
       <div class="form-group">
         <label class="form-label">노출 수</label>
@@ -361,7 +324,6 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
         <input class="form-inp" id="f_roas" type="number" placeholder="0">
       </div>
 
-      <!-- 메모 -->
       <div class="form-group full">
         <label class="form-label">메모</label>
         <textarea class="form-inp form-textarea" id="f_memo" placeholder="소재 특이사항, 타겟, 기간 등 자유롭게..."></textarea>
@@ -386,21 +348,18 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
       </div>
     </div>
     <img id="detailImg" class="detail-img" style="display:none;">
-    <div id="detailNoImg" style="width:100%;height:120px;background:var(--bg3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:16px;display:none;">🖼</div>
+    <video id="detailVideo" class="detail-video" controls style="display:none;"></video>
+    <div id="detailNoImg" style="width:100%;height:120px;background:var(--bg3);border-radius:10px;display:none;align-items:center;justify-content:center;font-size:40px;margin-bottom:16px;">🖼</div>
     <div class="detail-meta" id="detailMeta"></div>
     <div class="detail-kpis" id="detailKpis"></div>
     <div class="detail-memo" id="detailMemo" style="display:none;"></div>
   </div>
 </div>
 
-<!-- 로딩 -->
 <div class="loading-overlay" id="loadingOverlay"><div class="spin"></div></div>
-
-<!-- 토스트 -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ── Supabase 설정 ──
 const SUPA_URL = 'https://dleclzkkukdeptskjbdd.supabase.co';
 const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRsZWNsemtrdWtkZXB0c2tqYmRkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2MjY5NDgsImV4cCI6MjA5MTIwMjk0OH0.1DxIkzRFDcrGQOYEVnnKTGTSGH0GqjwdX8I8JTNlKYI';
 
@@ -419,9 +378,9 @@ const api = {
   async delete(table, id) {
     await fetch(`${SUPA_URL}/rest/v1/${table}?id=eq.${id}`, { method: 'DELETE', headers: this.headers });
   },
-  async uploadImg(file) {
+  async uploadFile(file, folder) {
     const ext = file.name.split('.').pop();
-    const name = `${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
+    const name = `${folder}/${Date.now()}_${Math.random().toString(36).slice(2)}.${ext}`;
     const r = await fetch(`${SUPA_URL}/storage/v1/object/creatives/${name}`, {
       method: 'POST',
       headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': file.type },
@@ -432,13 +391,13 @@ const api = {
   }
 };
 
-// ── 상태 ──
 let allData = [];
 let currentFilter = '';
 let currentDetailId = null;
 let selectedImgFile = null;
+let selectedVideoFile = null;
+let currentMediaTab = 'image';
 
-// ── 유틸 ──
 function toast(msg, type='ok') {
   const el = document.getElementById('toast');
   el.textContent = msg; el.className = 'toast ' + type + ' show';
@@ -454,7 +413,40 @@ function fmt(n, pre='') {
   return pre + Math.round(n).toLocaleString();
 }
 
-// ── 연결 체크 ──
+// 미디어 자동 감지 처리
+function handleMediaFile(file) {
+  if (!file) return;
+  if (file.type.startsWith('video/')) {
+    selectedVideoFile = file;
+    selectedImgFile = null;
+    currentMediaTab = 'video';
+    const url = URL.createObjectURL(file);
+    document.getElementById('uploadPlaceholder').style.display = 'none';
+    document.getElementById('imgPreview').style.display = 'none';
+    const prev = document.getElementById('videoPreview');
+    prev.src = url; prev.style.display = 'block';
+    toast('영상 선택됨: ' + file.name, 'ok');
+  } else if (file.type.startsWith('image/')) {
+    selectedImgFile = file;
+    selectedVideoFile = null;
+    currentMediaTab = 'image';
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('uploadPlaceholder').style.display = 'none';
+      document.getElementById('videoPreview').style.display = 'none';
+      const prev = document.getElementById('imgPreview');
+      prev.src = e.target.result; prev.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  }
+}
+function handleMediaSelect(input) { handleMediaFile(input.files[0]); }
+function handleMediaDrop(e) {
+  e.preventDefault();
+  document.getElementById('mediaUploadArea').classList.remove('drag');
+  handleMediaFile(e.dataTransfer.files[0]);
+}
+
 async function checkConn() {
   try {
     await api.get('creatives', 'limit=1');
@@ -465,7 +457,6 @@ async function checkConn() {
   }
 }
 
-// ── 데이터 로드 ──
 async function loadData() {
   try {
     allData = await api.get('creatives', 'order=created_at.desc');
@@ -476,7 +467,6 @@ async function loadData() {
   } catch(e) { toast('데이터 로드 실패', 'err'); }
 }
 
-// ── 페이지 전환 ──
 function showPage(id, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('on'));
@@ -484,7 +474,6 @@ function showPage(id, el) {
   if (el) el.classList.add('on');
 }
 
-// ── 매체 필터 ──
 function filterByMedia(media, el) {
   currentFilter = media;
   document.querySelectorAll('.sidebar .nav-item').forEach(n => n.classList.remove('on'));
@@ -492,7 +481,6 @@ function filterByMedia(media, el) {
   renderList();
 }
 
-// ── 소재 목록 렌더 ──
 function renderList() {
   const q = document.getElementById('searchInp').value.toLowerCase();
   const size = document.getElementById('filterSize').value;
@@ -500,12 +488,11 @@ function renderList() {
 
   let data = allData.filter(c => {
     const matchMedia = !currentFilter || (c.media||'').includes(currentFilter);
-    const matchSize = !size || size === '직접입력' || (c.size||'') === size;
-    const matchQ = !q || [c.client_name,c.title,c.tags,c.media,c.size].join(' ').toLowerCase().includes(q);
+    const matchSize = !size || (c.size||'') === size;
+    const matchQ = !q || [c.client_name,c.title,c.category,c.media,c.size].join(' ').toLowerCase().includes(q);
     return matchMedia && matchSize && matchQ;
   });
 
-  // 정렬
   if (sort === 'roas') data.sort((a,b) => (b.roas||0)-(a.roas||0));
   else if (sort === 'ctr') data.sort((a,b) => (b.ctr||0)-(a.ctr||0));
   else if (sort === 'cpc') data.sort((a,b) => (a.cpc||999999)-(b.cpc||999999));
@@ -517,20 +504,22 @@ function renderList() {
   if (!data.length) { grid.innerHTML=''; empty.style.display='block'; return; }
   empty.style.display = 'none';
 
-  grid.innerHTML = data.map(c => `
+  grid.innerHTML = data.map(c => {
+    const isVideo = !!c.video_url;
+    const mediaEl = isVideo
+      ? `<video src="${c.video_url}" muted loop preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video><span class="video-badge">▶ 영상</span>`
+      : (c.image_url ? `<img src="${c.image_url}" alt="${c.title||''}" loading="lazy" onerror="this.parentElement.innerHTML='🖼'">` : '🖼');
+    return `
     <div class="creative-card" onclick="openDetail('${c.id}')">
       <button class="card-del" onclick="event.stopPropagation();deleteCreativeById('${c.id}')">✕</button>
-      <div class="card-img">
-        ${c.image_url
-          ? `<img src="${c.image_url}" alt="${c.title||''}" loading="lazy" onerror="this.parentElement.innerHTML='🖼'">`
-          : '🖼'}
-      </div>
+      <div class="card-img">${mediaEl}</div>
       <div class="card-body">
         <div class="card-title">${c.client_name||'-'} ${c.title ? '· '+c.title : ''}</div>
         <div class="card-meta">
           ${c.media ? `<span class="tag media">${c.media}</span>` : ''}
           ${c.size ? `<span class="tag size">${c.size}</span>` : ''}
           ${c.format ? `<span class="tag">${c.format}</span>` : ''}
+          ${c.category ? `<span class="tag category">${c.category}</span>` : ''}
         </div>
         <div class="card-kpis">
           <div class="kpi-mini"><div class="kpi-mini-label">CTR</div><div class="kpi-mini-val">${c.ctr ? c.ctr+'%' : '-'}</div></div>
@@ -539,10 +528,10 @@ function renderList() {
           <div class="kpi-mini"><div class="kpi-mini-label">CPA</div><div class="kpi-mini-val">${c.cpa ? fmt(c.cpa,'₩') : '-'}</div></div>
         </div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
-// ── 통계 렌더 ──
 function renderStats() {
   const total = allData.length;
   const avgRoas = allData.filter(c=>c.roas).reduce((s,c)=>s+(c.roas||0),0) / (allData.filter(c=>c.roas).length||1);
@@ -561,7 +550,6 @@ function renderStats() {
       <div class="stat-sub">${s.s}</div>
     </div>`).join('');
 
-  // 매체별
   const mediaMap = {};
   allData.forEach(c => {
     const m = c.media || '미지정';
@@ -577,38 +565,8 @@ function renderStats() {
       </div>`).join('');
 }
 
-// ── 이미지 선택 ──
-function handleImgSelect(input) {
-  const file = input.files[0];
-  if (!file) return;
-  selectedImgFile = file;
-  const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById('uploadPlaceholder').style.display = 'none';
-    const prev = document.getElementById('imgPreview');
-    prev.src = e.target.result;
-    prev.style.display = 'block';
-  };
-  reader.readAsDataURL(file);
-}
 
-function handleImgDrop(e) {
-  e.preventDefault();
-  document.getElementById('imgUploadArea').classList.remove('drag');
-  const file = e.dataTransfer.files[0];
-  if (file && file.type.startsWith('image/')) {
-    selectedImgFile = file;
-    const reader = new FileReader();
-    reader.onload = ev => {
-      document.getElementById('uploadPlaceholder').style.display = 'none';
-      const prev = document.getElementById('imgPreview');
-      prev.src = ev.target.result; prev.style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-  }
-}
 
-// ── 자동 계산 ──
 function autoCalc() {
   const imp = parseFloat(document.getElementById('f_impression').value)||0;
   const clk = parseFloat(document.getElementById('f_click').value)||0;
@@ -622,7 +580,6 @@ function autoCalc() {
     document.getElementById('f_cpa').value = Math.round(cost/conv);
 }
 
-// ── 소재 저장 ──
 async function saveCreative() {
   const client = document.getElementById('f_client').value.trim();
   if (!client) { toast('업체명을 입력하세요', 'err'); return; }
@@ -630,18 +587,25 @@ async function saveCreative() {
   loading(true);
   try {
     let imageUrl = null;
-    if (selectedImgFile) {
-      imageUrl = await api.uploadImg(selectedImgFile);
+    let videoUrl = null;
+
+    if (currentMediaTab === 'image' && selectedImgFile) {
+      imageUrl = await api.uploadFile(selectedImgFile, 'images');
+    } else if (currentMediaTab === 'video' && selectedVideoFile) {
+      toast('영상 업로드 중... 잠시 기다려주세요', 'ok');
+      videoUrl = await api.uploadFile(selectedVideoFile, 'videos');
     }
+
     const data = {
       client_name: client,
       title: document.getElementById('f_title').value||null,
       media: document.getElementById('f_media').value||null,
       size: document.getElementById('f_size').value||null,
       format: document.getElementById('f_format').value||null,
-      tags: document.getElementById('f_tags').value||null,
+      category: document.getElementById('f_category').value||null,
       memo: document.getElementById('f_memo').value||null,
       image_url: imageUrl,
+      video_url: videoUrl,
       impression: parseInt(document.getElementById('f_impression').value)||null,
       click: parseInt(document.getElementById('f_click').value)||null,
       conversion: parseInt(document.getElementById('f_conversion').value)||null,
@@ -659,13 +623,18 @@ async function saveCreative() {
   loading(false);
 }
 
-// ── 모달 ──
 function openAddModal() {
   document.getElementById('addModal').classList.add('show');
   selectedImgFile = null;
+  selectedVideoFile = null;
+  currentMediaTab = 'image';
+  selectedImgFile = null;
+  selectedVideoFile = null;
   document.getElementById('uploadPlaceholder').style.display = 'block';
   document.getElementById('imgPreview').style.display = 'none';
-  ['f_client','f_title','f_size','f_tags','f_memo','f_impression','f_click','f_conversion','f_ad_cost','f_ctr','f_cpc','f_cpa','f_roas'].forEach(id => {
+  document.getElementById('videoPreview').style.display = 'none';
+  // 폼 초기화
+  ['f_client','f_title','f_size','f_category','f_memo','f_impression','f_click','f_conversion','f_ad_cost','f_ctr','f_cpc','f_cpa','f_roas'].forEach(id => {
     document.getElementById(id).value = '';
   });
   document.getElementById('f_media').value = '';
@@ -679,16 +648,32 @@ function openDetail(id) {
   if (!c) return;
   currentDetailId = id;
   document.getElementById('detailTitle').textContent = (c.client_name||'-') + (c.title ? ' · '+c.title : '');
+
   const img = document.getElementById('detailImg');
+  const vid = document.getElementById('detailVideo');
   const noImg = document.getElementById('detailNoImg');
-  if (c.image_url) { img.src=c.image_url; img.style.display='block'; noImg.style.display='none'; }
-  else { img.style.display='none'; noImg.style.display='flex'; }
+
+  img.style.display = 'none';
+  vid.style.display = 'none';
+  noImg.style.display = 'none';
+
+  if (c.video_url) {
+    vid.src = c.video_url;
+    vid.style.display = 'block';
+  } else if (c.image_url) {
+    img.src = c.image_url;
+    img.style.display = 'block';
+  } else {
+    noImg.style.display = 'flex';
+  }
+
   document.getElementById('detailMeta').innerHTML = [
     c.media && `<span class="tag media">${c.media}</span>`,
     c.size && `<span class="tag size">${c.size}</span>`,
     c.format && `<span class="tag">${c.format}</span>`,
-    ...(c.tags||'').split(',').filter(Boolean).map(t=>`<span class="tag">#${t.trim()}</span>`)
+    c.category && `<span class="tag category">${c.category}</span>`,
   ].filter(Boolean).join('');
+
   document.getElementById('detailKpis').innerHTML = [
     {l:'CTR', v: c.ctr ? c.ctr+'%' : '-'},
     {l:'ROAS', v: c.roas ? c.roas+'%' : '-'},
@@ -699,13 +684,19 @@ function openDetail(id) {
     {l:'전환', v: c.conversion ? fmt(c.conversion) : '-'},
     {l:'광고비', v: c.ad_cost ? fmt(c.ad_cost,'₩') : '-'},
   ].map(k=>`<div class="detail-kpi"><div class="detail-kpi-label">${k.l}</div><div class="detail-kpi-val">${k.v}</div></div>`).join('');
+
   const memo = document.getElementById('detailMemo');
   if (c.memo) { memo.textContent=c.memo; memo.style.display='block'; }
   else memo.style.display='none';
+
   document.getElementById('detailModal').classList.add('show');
 }
 
-function closeDetailModal() { document.getElementById('detailModal').classList.remove('show'); currentDetailId=null; }
+function closeDetailModal() {
+  document.getElementById('detailModal').classList.remove('show');
+  document.getElementById('detailVideo').src = '';
+  currentDetailId = null;
+}
 
 async function deleteCreative() {
   if (!currentDetailId) return;
@@ -727,21 +718,18 @@ async function deleteCreativeById(id) {
   loading(false);
 }
 
-// ESC 닫기
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeAddModal(); closeDetailModal(); }
 });
 
-// 클릭 외부 닫기
 document.getElementById('addModal').addEventListener('click', e => { if(e.target===e.currentTarget)closeAddModal(); });
 document.getElementById('detailModal').addEventListener('click', e => { if(e.target===e.currentTarget)closeDetailModal(); });
 
-// KPI 자동계산 이벤트
 ['f_impression','f_click','f_conversion','f_ad_cost'].forEach(id => {
   document.getElementById(id).addEventListener('blur', autoCalc);
 });
 
-// ── Ctrl+V 이미지 붙여넣기 (모달 열려있을 때) ──
+// Ctrl+V 이미지 붙여넣기
 document.addEventListener('paste', function(e) {
   const modal = document.getElementById('addModal');
   if (!modal.classList.contains('show')) return;
@@ -759,7 +747,6 @@ document.addEventListener('paste', function(e) {
         const prev = document.getElementById('imgPreview');
         prev.src = ev.target.result;
         prev.style.display = 'block';
-        // 업로드 영역 테두리 강조
         const area = document.getElementById('imgUploadArea');
         area.style.borderColor = 'var(--green)';
         setTimeout(() => area.style.borderColor = '', 1500);
@@ -771,17 +758,14 @@ document.addEventListener('paste', function(e) {
   }
 });
 
-// ── 업체명 자동완성 업데이트 ──
 function updateClientList() {
   const clients = [...new Set(allData.map(c => c.client_name).filter(Boolean))].sort();
   const dl = document.getElementById('clientList');
   if (dl) dl.innerHTML = clients.map(c => `<option value="${c}">`).join('');
 }
 
-// ── 초기화 ──
 checkConn();
 loadData();
 </script>
-
-
-</body></html>
+</body>
+</html>
