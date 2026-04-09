@@ -201,6 +201,28 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
         </select>
         <span style="font-size:11px;color:var(--text3);" id="countLabel">총 0개</span>
       </div>
+      <!-- KPI 필터 -->
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;">
+        <span style="font-size:11px;color:var(--text3);font-weight:600;">KPI 필터</span>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span style="font-size:11px;color:var(--text2);">CTR ≥</span>
+          <input class="form-inp" id="fCtr" type="number" step="0.01" placeholder="%" style="width:70px;padding:4px 8px;font-size:11px;" oninput="renderList()">
+        </div>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span style="font-size:11px;color:var(--text2);">ROAS ≥</span>
+          <input class="form-inp" id="fRoas" type="number" placeholder="%" style="width:70px;padding:4px 8px;font-size:11px;" oninput="renderList()">
+        </div>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span style="font-size:11px;color:var(--text2);">CPC ≤</span>
+          <input class="form-inp" id="fCpc" type="number" placeholder="원" style="width:80px;padding:4px 8px;font-size:11px;" oninput="renderList()">
+        </div>
+        <div style="display:flex;align-items:center;gap:4px;">
+          <span style="font-size:11px;color:var(--text2);">CPA ≤</span>
+          <input class="form-inp" id="fCpa" type="number" placeholder="원" style="width:80px;padding:4px 8px;font-size:11px;" oninput="renderList()">
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="clearKpiFilter()" style="padding:4px 10px;font-size:11px;">초기화</button>
+      </div>
+
       <div class="creative-grid" id="creativeGrid"></div>
       <div class="empty" id="emptyState" style="display:block;">
         <div class="empty-ico">📭</div>
@@ -343,6 +365,7 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
     <div class="modal-title">
       <span id="detailTitle">소재 상세</span>
       <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost btn-sm" onclick="openEditModal()">✏️ 수정</button>
         <button class="btn btn-danger btn-sm" onclick="deleteCreative()">🗑 삭제</button>
         <button class="modal-close" onclick="closeDetailModal()">✕</button>
       </div>
@@ -356,6 +379,93 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
   </div>
 </div>
 
+<!-- 수정 모달 -->
+<div class="modal-bg" id="editModal">
+  <div class="modal">
+    <div class="modal-title">
+      ✏️ 소재 수정
+      <button class="modal-close" onclick="closeEditModal()">✕</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">업체명 *</label>
+        <input class="form-inp" id="e_client" placeholder="예: 애플네이처">
+      </div>
+      <div class="form-group">
+        <label class="form-label">소재 제목</label>
+        <input class="form-inp" id="e_title" placeholder="예: 여름 신제품 배너">
+      </div>
+      <div class="form-group">
+        <label class="form-label">매체</label>
+        <select class="form-sel" id="e_media">
+          <option value="">선택</option>
+          <option>네이버SA</option><option>네이버GFA</option><option>카카오SA</option>
+          <option>카카오DA</option><option>구글</option><option>메타</option>
+          <option>틱톡</option><option>쿠팡</option><option>당근</option>
+          <option>모비온</option><option>크리테오</option><option>기타</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">소재 사이즈</label>
+        <input class="form-inp" id="e_size" placeholder="예: 1080x1080">
+      </div>
+      <div class="form-group">
+        <label class="form-label">포맷</label>
+        <select class="form-sel" id="e_format">
+          <option value="">선택</option>
+          <option>이미지</option><option>동영상</option><option>캐러셀</option>
+          <option>텍스트</option><option>반응형</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">카테고리</label>
+        <input class="form-inp" id="e_category" placeholder="예: 신제품,할인,시즌">
+      </div>
+      <div class="kpi-section-title">📊 성과 지표</div>
+      <div class="form-group">
+        <label class="form-label">노출 수</label>
+        <input class="form-inp" id="e_impression" type="number" placeholder="0">
+      </div>
+      <div class="form-group">
+        <label class="form-label">클릭 수</label>
+        <input class="form-inp" id="e_click" type="number" placeholder="0">
+      </div>
+      <div class="form-group">
+        <label class="form-label">전환 수</label>
+        <input class="form-inp" id="e_conversion" type="number" placeholder="0">
+      </div>
+      <div class="form-group">
+        <label class="form-label">광고비 (원)</label>
+        <input class="form-inp" id="e_ad_cost" type="number" placeholder="0">
+      </div>
+      <div class="form-group">
+        <label class="form-label">CTR (%)</label>
+        <input class="form-inp" id="e_ctr" type="number" step="0.01" placeholder="0">
+      </div>
+      <div class="form-group">
+        <label class="form-label">CPC (원)</label>
+        <input class="form-inp" id="e_cpc" type="number" placeholder="0">
+      </div>
+      <div class="form-group">
+        <label class="form-label">CPA (원)</label>
+        <input class="form-inp" id="e_cpa" type="number" placeholder="0">
+      </div>
+      <div class="form-group">
+        <label class="form-label">ROAS (%)</label>
+        <input class="form-inp" id="e_roas" type="number" placeholder="0">
+      </div>
+      <div class="form-group full">
+        <label class="form-label">메모</label>
+        <textarea class="form-inp form-textarea" id="e_memo" placeholder="소재 특이사항, 타겟, 기간 등..."></textarea>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px;">
+      <button class="btn btn-ghost" onclick="closeEditModal()">취소</button>
+      <button class="btn btn-primary" onclick="updateCreative()">💾 수정 저장</button>
+    </div>
+  </div>
+</div>
+
 <div class="loading-overlay" id="loadingOverlay"><div class="spin"></div></div>
 <div class="toast" id="toast"></div>
 
@@ -365,6 +475,14 @@ const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsI
 
 const api = {
   headers: { 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json' },
+  async patch(table, id, data) {
+    const r = await fetch(`${SUPA_URL}/rest/v1/${table}?id=eq.${id}`, {
+      method: 'PATCH',
+      headers: { ...this.headers, 'Prefer': 'return=representation' },
+      body: JSON.stringify(data)
+    });
+    return r.json();
+  },
   async get(table, params='') {
     const r = await fetch(`${SUPA_URL}/rest/v1/${table}?${params}`, { headers: this.headers });
     return r.json();
@@ -486,11 +604,20 @@ function renderList() {
   const size = document.getElementById('filterSize').value;
   const sort = document.getElementById('filterSort').value;
 
+  const minCtr = parseFloat(document.getElementById('fCtr').value)||0;
+  const minRoas = parseFloat(document.getElementById('fRoas').value)||0;
+  const maxCpc = parseFloat(document.getElementById('fCpc').value)||0;
+  const maxCpa = parseFloat(document.getElementById('fCpa').value)||0;
+
   let data = allData.filter(c => {
     const matchMedia = !currentFilter || (c.media||'').includes(currentFilter);
     const matchSize = !size || (c.size||'') === size;
     const matchQ = !q || [c.client_name,c.title,c.category,c.media,c.size].join(' ').toLowerCase().includes(q);
-    return matchMedia && matchSize && matchQ;
+    const matchCtr = !minCtr || (c.ctr||0) >= minCtr;
+    const matchRoas = !minRoas || (c.roas||0) >= minRoas;
+    const matchCpc = !maxCpc || (c.cpc && c.cpc <= maxCpc);
+    const matchCpa = !maxCpa || (c.cpa && c.cpa <= maxCpa);
+    return matchMedia && matchSize && matchQ && matchCtr && matchRoas && matchCpc && matchCpa;
   });
 
   if (sort === 'roas') data.sort((a,b) => (b.roas||0)-(a.roas||0));
@@ -567,7 +694,67 @@ function renderStats() {
 
 
 
-function autoCalc() {
+function clearKpiFilter() {
+  ['fCtr','fRoas','fCpc','fCpa'].forEach(id => { document.getElementById(id).value = ''; });
+  renderList();
+}
+
+function openEditModal() {
+  const c = allData.find(x => x.id === currentDetailId);
+  if (!c) return;
+  closeDetailModal();
+  document.getElementById('e_client').value = c.client_name||'';
+  document.getElementById('e_title').value = c.title||'';
+  document.getElementById('e_media').value = c.media||'';
+  document.getElementById('e_size').value = c.size||'';
+  document.getElementById('e_format').value = c.format||'';
+  document.getElementById('e_category').value = c.category||'';
+  document.getElementById('e_impression').value = c.impression||'';
+  document.getElementById('e_click').value = c.click||'';
+  document.getElementById('e_conversion').value = c.conversion||'';
+  document.getElementById('e_ad_cost').value = c.ad_cost||'';
+  document.getElementById('e_ctr').value = c.ctr||'';
+  document.getElementById('e_cpc').value = c.cpc||'';
+  document.getElementById('e_cpa').value = c.cpa||'';
+  document.getElementById('e_roas').value = c.roas||'';
+  document.getElementById('e_memo').value = c.memo||'';
+  document.getElementById('editModal').classList.add('show');
+}
+
+function closeEditModal() { document.getElementById('editModal').classList.remove('show'); }
+
+async function updateCreative() {
+  const client = document.getElementById('e_client').value.trim();
+  if (!client) { toast('업체명을 입력하세요', 'err'); return; }
+  loading(true);
+  try {
+    const data = {
+      client_name: client,
+      title: document.getElementById('e_title').value||null,
+      media: document.getElementById('e_media').value||null,
+      size: document.getElementById('e_size').value||null,
+      format: document.getElementById('e_format').value||null,
+      category: document.getElementById('e_category').value||null,
+      memo: document.getElementById('e_memo').value||null,
+      impression: parseInt(document.getElementById('e_impression').value)||null,
+      click: parseInt(document.getElementById('e_click').value)||null,
+      conversion: parseInt(document.getElementById('e_conversion').value)||null,
+      ad_cost: parseFloat(document.getElementById('e_ad_cost').value)||null,
+      ctr: parseFloat(document.getElementById('e_ctr').value)||null,
+      cpc: parseFloat(document.getElementById('e_cpc').value)||null,
+      cpa: parseFloat(document.getElementById('e_cpa').value)||null,
+      roas: parseFloat(document.getElementById('e_roas').value)||null,
+    };
+    await api.patch('creatives', currentDetailId, data);
+    toast('수정 완료!', 'ok');
+    closeEditModal();
+    currentDetailId = null;
+    await loadData();
+  } catch(e) { toast('수정 실패: '+e.message, 'err'); }
+  loading(false);
+}
+
+function clearKpiFilter_dummy(){}
   const imp = parseFloat(document.getElementById('f_impression').value)||0;
   const clk = parseFloat(document.getElementById('f_click').value)||0;
   const conv = parseFloat(document.getElementById('f_conversion').value)||0;
@@ -719,7 +906,7 @@ async function deleteCreativeById(id) {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeAddModal(); closeDetailModal(); }
+  if (e.key === 'Escape') { closeAddModal(); closeDetailModal(); closeEditModal(); }
 });
 
 document.getElementById('addModal').addEventListener('click', e => { if(e.target===e.currentTarget)closeAddModal(); });
