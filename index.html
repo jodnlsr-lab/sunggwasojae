@@ -754,18 +754,9 @@ async function updateCreative() {
   loading(false);
 }
 
-function clearKpiFilter_dummy(){}
-  const imp = parseFloat(document.getElementById('f_impression').value)||0;
-  const clk = parseFloat(document.getElementById('f_click').value)||0;
-  const conv = parseFloat(document.getElementById('f_conversion').value)||0;
-  const cost = parseFloat(document.getElementById('f_ad_cost').value)||0;
-  if (imp && clk && !document.getElementById('f_ctr').value)
-    document.getElementById('f_ctr').value = (clk/imp*100).toFixed(2);
-  if (cost && clk && !document.getElementById('f_cpc').value)
-    document.getElementById('f_cpc').value = Math.round(cost/clk);
-  if (cost && conv && !document.getElementById('f_cpa').value)
-    document.getElementById('f_cpa').value = Math.round(cost/conv);
 }
+
+function autoCalc() {
 
 async function saveCreative() {
   const client = document.getElementById('f_client').value.trim();
